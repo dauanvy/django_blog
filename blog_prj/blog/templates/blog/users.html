@@ -1,0 +1,27 @@
+<h1>Users page</h1>
+
+<ul>
+   <li><a href="/blog/users">Back</a></li>
+</ul>
+
+<!-- Form Nhap lieu-->
+{% if id == None %}
+   <form action="{% url 'blog:users' %}" method="post">
+{% else %}
+  <p>testing</p>
+{% endif %}
+   {% csrf_token %}
+   {{ form }}
+   <input id="id_user_name" maxlength="100" name="user_name" type="text">
+   <input type="submit" value="Submit" />
+</form>
+<!--Bang hien thi-->
+{% if list_item|length %}
+<table border=1 style="width: 100%; border-collapse: collapse">
+   {% for item in list_item %}
+   <tr>
+       <td>{{ item.user_name }}</td>
+   </tr>
+   {% endfor %}
+</table>
+{% endif %}

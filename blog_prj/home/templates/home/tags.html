@@ -1,0 +1,38 @@
+{% extends 'home/header.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+						{% if id == None %}
+					<form action="{% url 'home:tags' %}" method="post">
+						{% else %}
+					<form action="{% url 'home:update_tags' id=id %}" method="post">
+						{% endif %}
+						{% csrf_token %}
+					<p>
+						{{ form }}
+					</p>
+					<p>
+						<input type="submit" value="Submit" />
+					</p>
+				</div>
+				</form>
+				Bang hien thi
+					{% if tags|length %}
+				<table border=1 style="width: 100%; border-collapse: collapse">
+						{% for tag in tags %}
+					<tr>
+						<td>{{ tag.name }}</td>
+						<td><a href="{% url 'home:update_tags' id=tag.id %}">Edit</a></td>
+						<td><a href="{% url 'home:remove_tags' id=tag.id %}">Remove</a></td>
+					</tr>
+						{% endfor %}
+				</table>
+					{% endif %}
+            </div>
+		</div>
+	</div>
+
+{% endblock %}

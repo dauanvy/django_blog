@@ -1,0 +1,38 @@
+{% extends 'home/header.html' %}
+
+{% block content %}
+	<style>
+		ul#id_tags{
+			list-style-type:none;
+			padding:0px;
+			margin:0px;
+			}
+
+		ul#id_tags li{
+			display:inline;
+			text-align:center;
+			text-decoration:none;
+			}
+		}
+	</style>
+    {% if id == None %}
+            <form action="{% url 'home:category_cat' %}" method="post">
+        {% else %}
+            <form action="{% url 'home:update_cat' id=id %}" method="post">
+        {% endif %}
+            {% csrf_token %}
+            <div class="container-fluid">
+                <label for = "name">Title</label>
+                {{ form.title}}
+
+                <label for = "name">Tags</label>
+                {{ form.tags }}
+                <label for = "name" style="padding-top: 20px;">Summary</label>
+                {{ form.summary }}
+                <label for = "name" style="padding-top: 20px;">Content</label>
+                {{ form.content }}
+                <input type="submit" value="Submit" />
+            </div>
+        </form>
+
+{% endblock %}

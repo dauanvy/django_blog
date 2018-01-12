@@ -1,0 +1,48 @@
+{% extends 'home/header_publish.html' %}
+
+{% block content %}
+   <div class="posts">
+        <h1 class="content-subhead">Latest posts</h1>
+        {% if list_item|length %}
+            {% for item in list_item %}
+            <section class="post">
+                <header class="post-header">
+                    <h2 class="post-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
+                    <p class="post-meta">
+                        By <a class="post-author" href="#">Wanter</a>
+                        under
+                        {% for tag in item.tags.all %}
+                            <a class="post-category post-category-js" href="#">{{ tag.name }}</a>
+                        {% endfor %}
+                    </p>
+                </header>
+                <div>
+                    {% autoescape off %} {{ item.summary }} {% endautoescape %}
+                    <!--{{item.summary|safe}}-->
+                </div>
+            </section>
+            {% endfor %}
+            <div class="container-fluid">
+				<nav style=" text-align: center;">
+					<ul class="pagination">
+						{% if list_item.has_previous %}
+						  <li><a href="?page={{ list_item.previous_page_number }}"><<</a></li>
+					  {% endif %}
+					  {% for pg in list_item.paginator.page_range %}
+						  {% if list_item.number == pg %}
+							  <li class="active"><a href="?page={{ pg }}">{{ pg }}</a></li>
+						  {% else %}
+							  <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+						  {% endif %}
+					  {% endfor %}
+					  {% if list_item.has_next %}
+						  <li><a href="?page={{ list_item.next_page_number }}">>></a></li>
+					  {% endif %}
+
+					</ul>
+				</nav>
+			</div>
+        {% endif %}
+        <h1 class="content-subhead" style="border-top: 1px solid #eee; border-bottom:none; padding: 1em 0; text-align: right;">DauTienThuy Blog</h1>
+    </div>
+{% endblock %}
